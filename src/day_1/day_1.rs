@@ -14,8 +14,10 @@ pub fn part_1() {
     }
 
     println!("The sum for day ones simple calibration is: {}", sum);
+}
 
-    sum = 0;
+pub fn part_2() {
+    let mut sum = 0;
 
     for line in fs::read_to_string("src/day_1/input.txt").unwrap().lines() {
         let curr = line.to_string();
