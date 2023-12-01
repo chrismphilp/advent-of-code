@@ -4,47 +4,43 @@ const DIGITS: [&str; 9] = [
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 ];
 
-pub fn part_1() {
-    let mut sum = 0;
-
-    for line in fs::read_to_string("src/day_1/input.txt").unwrap().lines() {
-        let curr = line.to_string();
-        let i = find_calibration_value(curr);
-        sum += i;
-    }
-
-    println!("The sum for day ones simple calibration is: {}", sum);
+pub fn process_answer() {
+    println!("The sum for day ones simple calibration is: {}", part_1());
+    println!("The sum for day ones advanced calibration is: {}", part_2());
 }
 
-pub fn part_2() {
-    let mut sum = 0;
+fn part_1() -> i32 {
+    fs::read_to_string("src/day_1/input.txt")
+        .unwrap()
+        .lines()
+        .map(|v| v.to_string())
+        .map(|v| find_calibration_value(v))
+        .sum()
+}
 
-    for line in fs::read_to_string("src/day_1/input.txt").unwrap().lines() {
-        let curr = line.to_string();
-        let i = find_advanced_forward_calibration_value(curr.clone()) * 10 + find_advanced_backward_calibration_value(curr.clone());
-        sum += i;
-    }
-
-    println!("The sum for day ones advanced calibration is: {}", sum);
+fn part_2() -> i32 {
+    fs::read_to_string("src/day_1/input.txt").unwrap()
+        .lines()
+        .map(|v| v.to_string())
+        .map(|v| find_advanced_forward_calibration_value(v.clone()) * 10 + find_advanced_backward_calibration_value(v.clone()))
+        .sum()
 }
 
 fn find_calibration_value(line: String) -> i32 {
-    let mut lhs = line.chars()
+    let lhs = line.chars()
         .filter(|v| v.is_digit(10))
         .next()
-        .map(|v| v.to_string())
+        .map(|v| v.to_digit(10).unwrap())
         .unwrap();
 
     let rhs = line.chars()
         .rev()
         .filter(|v| v.is_digit(10))
         .next()
-        .map(|v| v.to_string())
+        .map(|v| v.to_digit(10).unwrap())
         .unwrap();
 
-    lhs.push_str(&rhs);
-
-    lhs.parse::<i32>().unwrap()
+    (lhs * 10 + rhs) as i32
 }
 
 fn find_advanced_forward_calibration_value(line: String) -> i32 {
@@ -58,7 +54,7 @@ fn find_advanced_forward_calibration_value(line: String) -> i32 {
             for (j, d) in DIGITS.iter().enumerate() {
                 let chars: Vec<char> = d.chars().collect();
                 if char_vec[i..].starts_with(&chars) {
-                    return (j as i32) + 1
+                    return (j as i32) + 1;
                 }
             }
         }
@@ -79,7 +75,7 @@ fn find_advanced_backward_calibration_value(line: String) -> i32 {
             for (j, d) in DIGITS.iter().enumerate() {
                 let chars: Vec<char> = d.chars().collect();
                 if char_vec[(i as usize)..].starts_with(&chars) {
-                    return j as i32 + 1
+                    return j as i32 + 1;
                 }
             }
         }
@@ -91,8 +87,8 @@ fn find_advanced_backward_calibration_value(line: String) -> i32 {
 
 #[cfg(test)]
 mod test {
-    use super::find_advanced_forward_calibration_value;
     use super::find_advanced_backward_calibration_value;
+    use super::find_advanced_forward_calibration_value;
 
     #[test]
     fn should_find_correct_forward_values() {
