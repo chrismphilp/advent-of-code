@@ -14,7 +14,7 @@ fn part_1() -> i32 {
         .unwrap()
         .lines()
         .map(|v| v.to_string())
-        .map(|v| find_calibration_value(v))
+        .map(|v| find_calibration_value(&v))
         .sum()
 }
 
@@ -26,7 +26,7 @@ fn part_2() -> i32 {
         .sum()
 }
 
-fn find_calibration_value(line: String) -> i32 {
+fn find_calibration_value(line: &str) -> i32 {
     let lhs = line.chars()
         .filter(|v| v.is_digit(10))
         .next()
@@ -43,7 +43,7 @@ fn find_calibration_value(line: String) -> i32 {
     (lhs * 10 + rhs) as i32
 }
 
-fn find_advanced_forward_calibration_value(line: &String) -> i32 {
+fn find_advanced_forward_calibration_value(line: &str) -> i32 {
     let char_vec: Vec<char> = line.chars().collect();
     let mut i = 0;
 
@@ -64,7 +64,7 @@ fn find_advanced_forward_calibration_value(line: &String) -> i32 {
     0
 }
 
-fn find_advanced_backward_calibration_value(line: &String) -> i32 {
+fn find_advanced_backward_calibration_value(line: &str) -> i32 {
     let char_vec: Vec<char> = line.chars().collect();
     let mut i: i32 = char_vec.len() as i32 - 1;
 
@@ -92,20 +92,20 @@ mod test {
 
     #[test]
     fn should_find_correct_forward_values() {
-        assert_eq!(find_advanced_forward_calibration_value(&String::from("5")), 5);
-        assert_eq!(find_advanced_forward_calibration_value(&String::from("8onethree7")), 8);
-        assert_eq!(find_advanced_forward_calibration_value(&String::from("onethree7")), 1);
-        assert_eq!(find_advanced_forward_calibration_value(&String::from("onthree7")), 3);
-        assert_eq!(find_advanced_forward_calibration_value(&String::from("4onthree7")), 4);
+        assert_eq!(find_advanced_forward_calibration_value("5"), 5);
+        assert_eq!(find_advanced_forward_calibration_value("8onethree7"), 8);
+        assert_eq!(find_advanced_forward_calibration_value("onethree7"), 1);
+        assert_eq!(find_advanced_forward_calibration_value("onthree7"), 3);
+        assert_eq!(find_advanced_forward_calibration_value("4onthree7"), 4);
     }
 
     #[test]
     fn should_find_correct_backward_values() {
-        assert_eq!(find_advanced_backward_calibration_value(&String::from("5")), 5);
-        assert_eq!(find_advanced_backward_calibration_value(&String::from("8onethree7")), 7);
-        assert_eq!(find_advanced_backward_calibration_value(&String::from("onethree")), 3);
-        assert_eq!(find_advanced_backward_calibration_value(&String::from("1onthre")), 1);
-        assert_eq!(find_advanced_backward_calibration_value(&String::from("onesix827")), 7);
-        assert_eq!(find_advanced_backward_calibration_value(&String::from("onesixaaa")), 6);
+        assert_eq!(find_advanced_backward_calibration_value("5"), 5);
+        assert_eq!(find_advanced_backward_calibration_value("8onethree7"), 7);
+        assert_eq!(find_advanced_backward_calibration_value("onethree"), 3);
+        assert_eq!(find_advanced_backward_calibration_value("1onthre"), 1);
+        assert_eq!(find_advanced_backward_calibration_value("onesix827"), 7);
+        assert_eq!(find_advanced_backward_calibration_value("onesixaaa"), 6);
     }
 }
