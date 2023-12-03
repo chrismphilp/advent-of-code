@@ -1,5 +1,4 @@
 use std::{cmp, fs};
-
 use regex::Regex;
 
 pub fn process_answer() {
@@ -9,7 +8,8 @@ pub fn process_answer() {
 
 fn part_1() -> i32 {
     let input = fs::read_to_string("src/day_3/input.txt").unwrap();
-    process_engine_calibration(input.lines().collect::<Vec<&str>>())
+    let vec = input.lines().collect::<Vec<&str>>();
+    process_engine_calibration(vec)
 }
 
 fn process_engine_calibration(lines: Vec<&str>) -> i32 {
@@ -52,17 +52,6 @@ fn process_engine_calibration(lines: Vec<&str>) -> i32 {
     sum
 }
 
-fn find_actual_numeric_value(line: &Vec<char>, min: usize, max: usize) -> i32 {
-    let mut actual_number: i32 = 0;
-    let mut power = 1;
-
-    for c in (min..=max).rev() {
-        actual_number += (line[c].to_digit(10).unwrap() * power) as i32;
-        power = power * 10;
-    }
-    actual_number
-}
-
 fn find_row_value(row: Vec<&char>) -> bool {
     row.iter().any(|v| !v.is_digit(10) && **v != '.')
 }
@@ -85,7 +74,7 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
             .enumerate()
             .filter(|(_, &v)| v == '*')
             .map(|(index, _)| index)
-            .collect::<Vec<_>>();
+            .collect::<Vec<usize>>();
 
         for asterix_position in asterix_indexes {
             let mut count = 0;
@@ -100,7 +89,10 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
                     for number in re.find_iter(lines[x]) {
                         let start_index = number.start() as i32;
 
-                        if count < 3 && !calculated_indexes[x].contains(&start_index) && number.range().contains(&y) {
+                        if count > 2 {
+                            break;
+                        }
+                        if !calculated_indexes[x].contains(&start_index) && number.range().contains(&y) {
                             let actual_number = find_actual_numeric_value(&full_vec[x], number.start(), number.end() - 1);
                             product *= actual_number;
                             count += 1;
@@ -118,10 +110,20 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
     sum
 }
 
+fn find_actual_numeric_value(line: &Vec<char>, min: usize, max: usize) -> i32 {
+    let mut actual_number: i32 = 0;
+    let mut power = 1;
+
+    for c in (min..=max).rev() {
+        actual_number += (line[c].to_digit(10).unwrap() * power) as i32;
+        power = power * 10;
+    }
+    actual_number
+}
+
 #[cfg(test)]
 mod test {
     use std::fs;
-
     use crate::day_3::day_3::{process_engine_calibration, process_gear_value};
 
     #[test]
