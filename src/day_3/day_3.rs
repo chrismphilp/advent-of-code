@@ -1,4 +1,5 @@
 use std::{cmp, fs};
+
 use regex::Regex;
 
 pub fn process_answer() {
@@ -80,9 +81,6 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
         .collect::<Vec<Vec<char>>>();
 
     for (i, line) in full_vec.clone().into_iter().enumerate() {
-        let mut product: i32 = 1;
-        let mut count = 0;
-
         let asterix_indexes = line.iter()
             .enumerate()
             .filter(|(_, &v)| v == '*')
@@ -90,8 +88,11 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
             .collect::<Vec<_>>();
 
         for asterix_position in asterix_indexes {
+            let mut count = 0;
+            let mut product: i32 = 1;
+
             let mut calculated_indexes: Vec<Vec<i32>> = (0..140).into_iter()
-                .map(|v| vec!(-1; 140))
+                .map(|_| vec!(-1; 140))
                 .collect();
 
             for x in cmp::max(i as i32 - 1, 0) as usize..=cmp::min(i + 1, full_vec.len() - 1) {
@@ -104,17 +105,14 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
                             product *= actual_number;
                             count += 1;
                             calculated_indexes[x].push(start_index);
-                            // println!("Printing match for asterix at: ({}, {}). Number found: {}. Current count: {}", i, asterix_position, actual_number, count);
                         }
                     }
                 }
             }
-        }
 
-        // println!("Before adding to the sum the values are (count: {})", count);
-        if count == 2 {
-            // println!("Adding product of: {}", product);
-            sum += product;
+            if count == 2 {
+                sum += product;
+            }
         }
     }
     sum
@@ -123,6 +121,7 @@ fn process_gear_value(lines: &Vec<&str>) -> i32 {
 #[cfg(test)]
 mod test {
     use std::fs;
+
     use crate::day_3::day_3::{process_engine_calibration, process_gear_value};
 
     #[test]
@@ -143,13 +142,21 @@ mod test {
     fn should_find_correct_engine_gear_value() {
         let lines: Vec<&str> = vec!(
             "467..114..",
-            "...*......",
-            "..35..633.",
-            "21....#...",
+            "...*.....*",
+            "..35.*633.",
+            "21....#*..",
             "617*......",
             "617*..@874",
             "....5.....",
+            "35..5.....",
+            "*35.5.....",
+            "..5.5..150",
+            "*...5...2*"
         );
-        assert_eq!(process_gear_value(&lines), (467 * 35) + (617 * 617));
+        assert_eq!(process_gear_value(&lines), (467 * 35) + (617 * 617) + (35 * 35) + (150 * 2));
+
+        let input = fs::read_to_string("src/day_3/input.txt").unwrap();
+        let lines_vec = input.lines().collect::<Vec<&str>>();
+        assert_eq!(process_gear_value(&lines_vec), 84266818);
     }
 }
