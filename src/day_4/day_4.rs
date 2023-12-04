@@ -26,13 +26,11 @@ fn process_number_of_winning_values(line: &str) -> i32 {
         .map(|v| v.trim())
         .collect::<Vec<&str>>()[1]
         .split_whitespace()
-        .map(|v| v.trim())
         .map(|x| (x, 1))
         .collect::<BTreeMap<_, _>>();
 
     let chosen_numbers = split_line[1]
         .split_whitespace()
-        .map(|v| v.trim())
         .collect::<Vec<&str>>();
 
     chosen_numbers.into_iter()

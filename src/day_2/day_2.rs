@@ -23,11 +23,11 @@ fn part_2() -> i32 {
 
 fn process_invalid_games(line: &str) -> i32 {
     let split_line = line.split(":").collect::<Vec<&str>>();
-    let game_id: i32 = split_line[0].trim().split_whitespace().collect::<Vec<&str>>()[1].parse::<i32>().unwrap();
+    let game_id: i32 = split_line[0].split_whitespace().collect::<Vec<&str>>()[1].parse::<i32>().unwrap();
     let rhs = split_line[1].trim().split(";").collect::<Vec<&str>>();
 
     for game in rhs {
-        let cube_choices = game.trim().split_whitespace().collect::<Vec<&str>>();
+        let cube_choices = game.split_whitespace().collect::<Vec<&str>>();
         let mut i = 0;
 
         while i < cube_choices.len() {
@@ -66,7 +66,7 @@ fn process_power_of_games(line: &str) -> i32 {
     let mut min_blue: i32 = 1;
 
     for game in rhs {
-        let cube_choices = game.trim().split_whitespace().collect::<Vec<&str>>();
+        let cube_choices = game.split_whitespace().collect::<Vec<&str>>();
         let mut i = 0;
 
         while i < cube_choices.len() {
