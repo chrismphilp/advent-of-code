@@ -29,11 +29,8 @@ fn process_number_of_winning_values(line: &str) -> i32 {
         .map(|x| (x, 1))
         .collect::<BTreeMap<_, _>>();
 
-    let chosen_numbers = split_line[1]
+    split_line[1]
         .split_whitespace()
-        .collect::<Vec<&str>>();
-
-    chosen_numbers.into_iter()
         .filter(|v| winning_numbers.contains_key(v))
         .map(|_| 1)
         .sum()
