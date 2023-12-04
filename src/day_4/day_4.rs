@@ -2,8 +2,8 @@ use std::{cmp, fs};
 use std::collections::BTreeMap;
 
 pub fn process_answer() {
-    println!("The sum for day fours scratchcard winning values are: {}", part_1());
-    println!("The sum for day fours scratchcard copies are: {}", part_2());
+    println!("The sum for day fours scratchcard winning values is: {}", part_1());
+    println!("The sum for day fours scratchcard copies is: {}", part_2());
 }
 
 fn part_1() -> i32 {
@@ -32,8 +32,7 @@ fn process_number_of_winning_values(line: &str) -> i32 {
     split_line[1]
         .split_whitespace()
         .filter(|v| winning_numbers.contains_key(v))
-        .map(|_| 1)
-        .sum()
+        .count() as i32
 }
 
 fn part_2() -> i32 {
