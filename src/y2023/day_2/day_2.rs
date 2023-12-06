@@ -6,7 +6,7 @@ pub fn process_answer() {
 }
 
 fn part_1() -> i32 {
-    fs::read_to_string("src/day_2/input.txt")
+    fs::read_to_string("src/y2023/day_2/input.txt")
         .unwrap()
         .lines()
         .map(|v| process_invalid_games(v))
@@ -14,7 +14,7 @@ fn part_1() -> i32 {
 }
 
 fn part_2() -> i32 {
-    fs::read_to_string("src/day_2/input.txt")
+    fs::read_to_string("src/y2023/day_2/input.txt")
         .unwrap()
         .lines()
         .map(|v| process_power_of_games(v))
@@ -98,7 +98,7 @@ fn process_power_of_games(line: &str) -> i32 {
 
 #[cfg(test)]
 mod test {
-    use crate::day_2::day_2::{process_invalid_games, process_power_of_games};
+    use super::{process_invalid_games, process_power_of_games};
 
     #[test]
     fn should_find_correct_invalid_games() {

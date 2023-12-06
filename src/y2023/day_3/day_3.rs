@@ -1,4 +1,5 @@
 use std::{cmp, fs};
+
 use regex::Regex;
 
 pub fn process_answer() {
@@ -7,7 +8,7 @@ pub fn process_answer() {
 }
 
 fn part_1() -> i32 {
-    let input = fs::read_to_string("src/day_3/input.txt").unwrap();
+    let input = fs::read_to_string("src/y2023/day_3/input.txt").unwrap();
     let vec = input.lines().collect::<Vec<&str>>();
     process_engine_calibration(vec)
 }
@@ -57,7 +58,7 @@ fn find_row_value(row: Vec<&char>) -> bool {
 }
 
 fn part_2() -> i32 {
-    let input = fs::read_to_string("src/day_3/input.txt").unwrap();
+    let input = fs::read_to_string("src/y2023/day_3/input.txt").unwrap();
     let lines_vec = input.lines().collect::<Vec<&str>>();
     process_gear_value(&lines_vec)
 }
@@ -124,7 +125,7 @@ fn find_actual_numeric_value(line: &Vec<char>, min: usize, max: usize) -> i32 {
 #[cfg(test)]
 mod test {
     use std::fs;
-    use crate::day_3::day_3::{process_engine_calibration, process_gear_value};
+    use super::{process_engine_calibration, process_gear_value};
 
     #[test]
     fn should_find_correct_engine_calibration_value() {

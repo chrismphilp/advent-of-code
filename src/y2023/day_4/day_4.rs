@@ -7,7 +7,7 @@ pub fn process_answer() {
 }
 
 fn part_1() -> i32 {
-    fs::read_to_string("src/day_4/input.txt")
+    fs::read_to_string("src/y2023/day_4/input.txt")
         .unwrap()
         .lines()
         .map(|v| process_number_of_winning_values(v))
@@ -36,7 +36,7 @@ fn process_number_of_winning_values(line: &str) -> i32 {
 }
 
 fn part_2() -> i32 {
-    let input = fs::read_to_string("src/day_4/input.txt").unwrap();
+    let input = fs::read_to_string("src/y2023/day_4/input.txt").unwrap();
     let lines = input.lines().collect::<Vec<&str>>();
     process_number_of_scratchcard_copies(lines)
 }
@@ -57,7 +57,7 @@ fn process_number_of_scratchcard_copies(lines: Vec<&str>) -> i32 {
 
 #[cfg(test)]
 mod test {
-    use crate::day_4::day_4::{process_number_of_scratchcard_copies, process_number_of_winning_values};
+    use super::{process_number_of_scratchcard_copies, process_number_of_winning_values};
 
     #[test]
     fn should_find_correct_scratchcard_winning_values() {

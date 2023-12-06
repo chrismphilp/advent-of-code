@@ -7,7 +7,7 @@ pub fn process_answer() {
 }
 
 fn part_1() -> i64 {
-    let lines = fs::read_to_string("src/day_5/input.txt").unwrap();
+    let lines = fs::read_to_string("src/y2023/day_5/input.txt").unwrap();
     let input = lines.split("\n\n").collect::<Vec<&str>>();
     let seeds = input[0]
         .split_whitespace()
@@ -52,7 +52,7 @@ fn find_min_seed(seed: i64, groups: &Vec<Vec<Vec<i64>>>) -> i64 {
 }
 
 fn part_2() -> i64 {
-    let lines = fs::read_to_string("src/day_5/input.txt").unwrap();
+    let lines = fs::read_to_string("src/y2023/day_5/input.txt").unwrap();
     let input = lines.split("\n\n").collect::<Vec<&str>>();
     let seeds = input[0]
         .split_whitespace()
@@ -79,7 +79,7 @@ fn part_2() -> i64 {
 
 #[cfg(test)]
 mod test {
-    use crate::day_5::day_5::process_minimum_seed;
+    use super::process_minimum_seed;
 
     #[test]
     fn should_find_correct_scratchcard_winning_values() {

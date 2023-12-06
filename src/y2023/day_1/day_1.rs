@@ -10,7 +10,7 @@ pub fn process_answer() {
 }
 
 fn part_1() -> i32 {
-    fs::read_to_string("src/day_1/input.txt")
+    fs::read_to_string("src/y2023/day_1/input.txt")
         .unwrap()
         .lines()
         .map(|v| v.to_string())
@@ -19,7 +19,7 @@ fn part_1() -> i32 {
 }
 
 fn part_2() -> i32 {
-    fs::read_to_string("src/day_1/input.txt").unwrap()
+    fs::read_to_string("src/y2023/day_1/input.txt").unwrap()
         .lines()
         .map(|v| v.to_string())
         .map(|v| find_advanced_forward_calibration_value(&v) * 10 + find_advanced_backward_calibration_value(&v))
