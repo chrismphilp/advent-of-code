@@ -22,17 +22,10 @@ fn find_winning_boats(times: Vec<i64>, records: Vec<i64>) -> i64 {
 }
 
 fn find_number_of_times_boat_beat_record(time: i64, record: i64) -> i64 {
-    let mut winning_counts = 0;
-
-    for curr in 0..time {
-        let button_time = time - curr;
-        let distance_travelled = button_time * (time - button_time);
-
-        if distance_travelled > record {
-            winning_counts += 1;
-        }
-    }
-    winning_counts
+    (0..time).into_iter()
+        .map(|v| (time - v) * v)
+        .filter(|v| *v > record)
+        .count() as i64
 }
 
 fn part_2() -> i64 {
