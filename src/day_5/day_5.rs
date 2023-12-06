@@ -2,7 +2,8 @@ use std::fs;
 
 pub fn process_answer() {
     println!("The sum for day fives minimum location is: {}", part_1());
-    println!("The sum for day fives overall minimum location is: {}", part_2());
+    // TODO: Fix part_2 brute force approach
+    // println!("The sum for day fives overall minimum location is: {}", part_2());
 }
 
 fn part_1() -> i64 {
