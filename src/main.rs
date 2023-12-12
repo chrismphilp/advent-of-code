@@ -1,3 +1,5 @@
+extern crate core;
+
 mod y2022;
 mod y2023;
 
