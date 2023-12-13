@@ -57,7 +57,7 @@ fn part_2() -> i64 {
 fn find_starting_nodes<'a>(directions: &HashMap<&'a str, (&str, &str)>) -> Vec<(&'a str, i32)> {
     directions.iter().enumerate()
         .filter(|(_, (k, _))| k.ends_with('A'))
-        .map(|(i, (k, _))| (*k, 0))
+        .map(|(_, (k, _))| (*k, 0))
         .collect::<Vec<(&'a str, i32)>>()
 }
 

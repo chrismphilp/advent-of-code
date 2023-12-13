@@ -6,6 +6,7 @@ use crate::y2023::day_5::day_5;
 use crate::y2023::day_6::day_6;
 use crate::y2023::day_7::day_7;
 use crate::y2023::day_8::day_8;
+use crate::y2023::day_9::day_9;
 
 pub fn process_answers() {
     day_1::process_answer();
@@ -16,4 +17,5 @@ pub fn process_answers() {
     day_6::process_answer();
     day_7::process_answer();
     day_8::process_answer();
+    day_9::process_answer();
 }
