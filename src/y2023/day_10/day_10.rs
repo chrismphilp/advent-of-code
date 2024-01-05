@@ -99,17 +99,19 @@ fn create_path_only_diagram(diagram: &Vec<Vec<char>>, path: &HashSet<(i32, i32)>
 
 fn find_tiles_inside_loop(path_only_diagram: &Vec<Vec<char>>) -> usize {
     let mut count: usize = 0;
-    let vertical_pipes = vec!(VERTICAL, NEBend, NWBend);
+    let north_vertical_pipes = vec!(VERTICAL, NEBend, NWBend);
+    let south_vertical_pipes = vec!(VERTICAL, SWBend, SEBend);
 
-    for xv in path_only_diagram {
+    for (ix, xv) in path_only_diagram.iter().enumerate() {
         let mut intersecting = false;
 
-        for yv in xv {
+        for (iy, yv) in xv.iter().enumerate() {
+            let prev = Pipe::from_char(path_only_diagram[ix][cmp::max(iy as i32 - 1, 0) as usize]);
             let curr = Pipe::from_char(*yv);
 
             if curr == IGNORED && intersecting {
                 count += 1;
-            } else if vertical_pipes.contains(&curr) {
+            } else if north_vertical_pipes.contains(&curr) || (curr == START && south_vertical_pipes.contains(&prev)) {
                 intersecting = !intersecting;
             }
         }
